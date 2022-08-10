@@ -1,0 +1,85 @@
+.Sticky {
+  width: 300px;
+  height: 188px;
+  padding: 16px;
+  background-color: aliceblue;
+  border-radius: 12px;
+
+  box-shadow: 4px 5px 8px rgba(0, 0, 0, 0.125);
+  transition: 0.4s;
+}
+
+.Sticky:hover {
+  box-shadow: 8px 10px 16px rgba(0, 0, 0, 0.25);
+}
+
+.Sticky_Title {
+  background-color: aqua;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 29px;
+  border-radius: 6px;
+}
+
+.Sticky_Row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.Sticky_Row span {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 4px;
+  color: #ffffff;
+  box-sizing: border-box;
+}
+
+.Sticky_Priority {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+
+  width: fit-content;
+  padding: 0px 16px;
+  height: 16px;
+  color: #ffffff;
+
+  border-radius: 4px;
+  margin-top: 6px;
+  margin-left: 4px;
+  margin-right: 8px;
+}
+
+.Sticky_Description {
+  width: 100%;
+  height: 96px;
+  margin-top: 6px;
+  background: #ffffff36;
+  border: 1px solid #56565633;
+  border-radius: 12px;
+  padding: 8px;
+
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: #ffffff;
+}

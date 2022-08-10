@@ -1,0 +1,83 @@
+.Navbar {
+  height: 100%;
+  width: 86px;
+  box-shadow: 8px 10px 16px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  transition: 0.4s;
+  background-color: #fff;
+  border-radius: 0 8px 8px 0;
+
+  padding: 24px 16px;
+}
+
+.Navbar.open {
+  width: 320px;
+}
+
+.Logo {
+  height: 120px;
+}
+.Navbar_Options {
+  list-style: none;
+  padding: 0;
+  row-gap: 23px;
+}
+
+.Navbar .Navbar_Item.selected .Navbar_Item__Icon {
+  color: #3b2bee;
+}
+
+.Navbar.open .Navbar_Item.selected {
+  border-bottom: #3b2bee00;
+}
+
+.Navbar_Item {
+  height: 37px;
+  width: 32px;
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.Navbar.open .Navbar_Item {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.Navbar_Item span {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 37px;
+  /* identical to box height, or 206% */
+  color: #12133100;
+  white-space: nowrap;
+
+  transition: 1s;
+}
+
+.Navbar.open .Navbar_Item span {
+  color: #121331;
+}
+
+.Navbar_Item:hover {
+  border-right: 3px solid #3b2bee;
+
+  background-color: #ebebeb;
+  border-radius: 2px;
+}
+
+.Navbar.open .Navbar_Item:hover span,
+.Navbar.open .Navbar_Item:hover {
+  color: #3b2bee;
+}
+
+.Navbar_Item__Icon {
+  font-size: 32px;
+  user-select: none;
+  margin-right: 8px;
+}

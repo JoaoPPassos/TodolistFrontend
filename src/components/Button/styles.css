@@ -1,0 +1,21 @@
+.ButtonInclude {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  user-select: none;
+  cursor: pointer;
+  color: #fff;
+  border: 1px solid #fff;
+  transition: 0.4s;
+}
+
+.ButtonInclude:hover {
+  color: #000;
+  border: 1px solid #000;
+  background-color: #fff;
+}
