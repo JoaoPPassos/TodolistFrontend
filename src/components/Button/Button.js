@@ -18,8 +18,8 @@ const normalButton = (props) => {
   const { onClick, label } = props;
 
   return (
-    <div onClick={onClick}>
-      <button>{label}</button>
+    <div onClick={onClick} className="Button">
+      {label}
     </div>
   );
 };

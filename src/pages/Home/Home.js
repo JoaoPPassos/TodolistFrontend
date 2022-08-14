@@ -58,8 +58,6 @@ const Home = () => {
     } catch (error) {}
   };
 
-  console.log(form);
-
   return (
     <main className="Home">
       <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)}>
