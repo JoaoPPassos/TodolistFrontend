@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, CategoryArea, Input, Modal, Sticky } from "../../components";
 import { apiTodo } from "../../service/api";
 
@@ -8,6 +8,7 @@ const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [form, setForm] = useState({});
+  const [selectedTodo, setSelectedTodo] = useState(null);
   const getTodoList = async () => {
     try {
       const response = await apiTodo.get();
@@ -19,6 +20,7 @@ const Home = () => {
   useEffect(() => {
     executeRequests();
   }, []);
+
   const executeRequests = () => {
     Promise.all([getTodoList(), getCategories()]).then((result) => {
       let categories = result[1].data;
@@ -37,12 +39,19 @@ const Home = () => {
       setTodos(obj);
     });
   };
+
   const getCategories = async () => {
     try {
       const response = apiTodo.get("/category");
       return response;
     } catch (error) {}
   };
+
+  useEffect(() => {
+    if (!!selectedTodo) {
+      setShowCreateModal(true);
+    }
+  }, [selectedTodo]);
 
   const createTodo = async () => {
     try {
@@ -58,10 +67,27 @@ const Home = () => {
     } catch (error) {}
   };
 
+  const editTodo = async () => {
+    try {
+      const response = await apiTodo.put(`/update/${selectedTodo.id}`, {
+        title: form?.title,
+        description: form?.description,
+        category: selectedTodo.category.id,
+        deadline: form?.date,
+        priority: form?.priority || selectedCategory.priority.todo,
+      });
+      setShowCreateModal(false);
+      executeRequests();
+    } catch (error) {
+    } finally {
+      setSelectedTodo(null);
+    }
+  };
+
   return (
     <main className="Home">
       <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)}>
-        <Modal.Header title="header aqui" closeButton />
+        <Modal.Header title="Create Todo" closeButton />
         <Modal.Body>
           <div>
             <Input
@@ -69,12 +95,14 @@ const Home = () => {
               onChange={(el) =>
                 setForm((old) => ({ ...old, title: el.target.value }))
               }
+              defaultValue={selectedTodo?.title}
             />
             <Input
               label="Description"
               onChange={(el) =>
                 setForm((old) => ({ ...old, description: el.target.value }))
               }
+              defaultValue={selectedTodo?.description}
             />
             <Input
               label="deadline"
@@ -82,9 +110,14 @@ const Home = () => {
               onChange={(el) =>
                 setForm((old) => ({ ...old, date: el.target.value }))
               }
+              defaultValue={selectedTodo?.deadline}
             />
             <Input
               label="priority"
+              type="range"
+              minRange="0"
+              maxRange="3"
+              defaultValue={String(selectedTodo?.priority.id)}
               onChange={(el) =>
                 setForm((old) => ({
                   ...old,
@@ -95,9 +128,16 @@ const Home = () => {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button label="confirmar" onClick={createTodo} />
+          <Button
+            label="Confirm"
+            onClick={() => {
+              if (!!selectedTodo) editTodo();
+              else createTodo();
+            }}
+          />
         </Modal.Footer>
       </Modal>
+
       <div className="Home_Content">
         {todos.map((item) => (
           <CategoryArea
@@ -115,6 +155,7 @@ const Home = () => {
                 priority={todo.priority}
                 description={todo.description}
                 deadline={todo.deadline}
+                onClick={() => setSelectedTodo(todo)}
               />
             ))}
           </CategoryArea>

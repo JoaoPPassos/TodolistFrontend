@@ -11,6 +11,10 @@
   padding: 2px 6px;
 }
 
+.InputArea.range {
+  height: 48px;
+}
+
 .Input.outlined .InputArea {
   background-color: transparent;
   border: 1px solid #fff;

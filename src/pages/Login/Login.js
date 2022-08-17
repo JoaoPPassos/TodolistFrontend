@@ -12,9 +12,14 @@ const Login = () => {
   return (
     <main className="Login">
       <section>
-        <Input label="email" onChange={(ref) => setName(ref.target.value)} />
+        <Input
+          label="email"
+          outlined
+          onChange={(ref) => setName(ref.target.value)}
+        />
         <Input
           label="senha"
+          outlined
           onChange={(ref) => setPassword(ref.target.value)}
         />
         <div>
