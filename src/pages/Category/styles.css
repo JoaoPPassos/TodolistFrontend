@@ -9,3 +9,8 @@
   row-gap: 16px;
   column-gap: 24px;
 }
+
+.ButtonDiv {
+  display: flex;
+  justify-content: space-between;
+}

@@ -13,7 +13,7 @@ const Input = (props) => {
   } = props;
 
   const [currentRange, setCurrentRange] = useState(
-    defaultValue && type === "range" ? defaultValue : "0"
+    !!defaultValue && type === "range" ? String(defaultValue) : "3"
   );
 
   let rangeValues = {
@@ -22,6 +22,7 @@ const Input = (props) => {
     3: "Normal",
     4: "Pouco Importante",
   };
+
   return (
     <div className={`Input ${outlined ? "outlined" : ""}`}>
       <label className="InputLabel">{label}</label>

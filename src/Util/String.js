@@ -4,9 +4,9 @@ export const Capitalize = (value, perWord = false) => {
   const capitalized = perWord
     ? words.map((word) => {
         const lower = word.toLowerCase();
-        const firstLetter = word.charAt(0).toUpperCase();
+        const firstLetter = lower.charAt(0).toUpperCase();
 
-        return firstLetter + word.slice(1) + " ";
+        return firstLetter + lower.slice(1) + " ";
       })
     : value[0].toUpperCase() + value.slice(1);
 

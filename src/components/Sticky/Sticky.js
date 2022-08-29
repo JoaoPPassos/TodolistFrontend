@@ -8,7 +8,10 @@ const Sticky = (props) => {
     props;
 
   const lightColor = getLightAndDarkColor(baseColor, 70);
-  const priority_color = getLightAndDarkColor(baseColor, 40 * priority.id - 60);
+  const priority_color = getLightAndDarkColor(
+    baseColor,
+    40 * priority.id - 100
+  );
 
   return (
     <div

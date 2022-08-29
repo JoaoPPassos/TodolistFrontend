@@ -76,20 +76,33 @@ const Home = () => {
       });
       setShowCreateModal(false);
       executeRequests();
+      setForm({});
     } catch (error) {}
   };
 
   const editTodo = async () => {
     try {
       const response = await apiTodo.put(`/update/${selectedTodo.id}`, {
-        title: form?.title,
-        description: form?.description,
-        category: selectedTodo.category.id,
-        // deadline: form?.date,
-        priority: form?.priority || selectedCategory.priority.todo,
+        name: form?.title || selectedTodo.title,
+        description: form?.description || selectedTodo.description,
+        category_id: selectedTodo.category_id,
+        priority_id: form?.priority || selectedTodo.priority_id,
       });
       setShowCreateModal(false);
       executeRequests();
+      setForm({});
+    } catch (error) {
+    } finally {
+      setSelectedTodo(null);
+    }
+  };
+
+  const deleteTodo = async () => {
+    try {
+      const response = await apiTodo.delete(`/${selectedTodo.id}`);
+      setShowCreateModal(false);
+      executeRequests();
+      setForm({});
     } catch (error) {
     } finally {
       setSelectedTodo(null);
@@ -103,25 +116,35 @@ const Home = () => {
         <strong>{Capitalize(user?.user, true)}</strong>{" "}
       </span>
 
-      <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)}>
-        <Modal.Header title="Create Todo" closeButton />
-        <Modal.Body>
-          <div>
-            <Input
-              label="Title"
-              onChange={(el) =>
-                setForm((old) => ({ ...old, title: el.target.value }))
-              }
-              defaultValue={selectedTodo?.name}
-            />
-            <Input
-              label="Description"
-              onChange={(el) =>
-                setForm((old) => ({ ...old, description: el.target.value }))
-              }
-              defaultValue={selectedTodo?.description}
-            />
-            {/* <Input
+      {showCreateModal && (
+        <Modal
+          show={showCreateModal}
+          onHide={() => {
+            if (selectedTodo) setSelectedTodo(null);
+            setShowCreateModal(false);
+          }}
+        >
+          <Modal.Header
+            title={!!selectedTodo ? "Edit Todo" : "Create Todo"}
+            closeButton
+          />
+          <Modal.Body>
+            <div>
+              <Input
+                label="Title"
+                onChange={(el) =>
+                  setForm((old) => ({ ...old, title: el.target.value }))
+                }
+                defaultValue={selectedTodo?.name}
+              />
+              <Input
+                label="Description"
+                onChange={(el) =>
+                  setForm((old) => ({ ...old, description: el.target.value }))
+                }
+                defaultValue={selectedTodo?.description}
+              />
+              {/* <Input
               label="deadline"
               type="date"
               onChange={(el) =>
@@ -129,31 +152,43 @@ const Home = () => {
               }
               defaultValue={selectedTodo?.deadline}
             /> */}
-            <Input
-              label="priority"
-              type="range"
-              minRange="1"
-              maxRange="4"
-              defaultValue={String(selectedTodo?.priority_id)}
-              onChange={(el) =>
-                setForm((old) => ({
-                  ...old,
-                  priority: Number(el.target.value),
-                }))
-              }
-            />
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            label="Confirm"
-            onClick={() => {
-              if (!!selectedTodo) editTodo();
-              else createTodo();
-            }}
-          />
-        </Modal.Footer>
-      </Modal>
+              <Input
+                label="priority"
+                type="range"
+                minRange="1"
+                maxRange="4"
+                defaultValue={selectedTodo?.priority_id}
+                onChange={(el) =>
+                  setForm((old) => ({
+                    ...old,
+                    priority: Number(el.target.value),
+                  }))
+                }
+              />
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <div className="ButtonDiv">
+              <Button
+                label="Confirm"
+                onClick={() => {
+                  if (!!selectedTodo) editTodo();
+                  else createTodo();
+                }}
+              />
+              {!!selectedTodo && (
+                <Button
+                  type="remove"
+                  label="Delete"
+                  onClick={() => {
+                    deleteTodo();
+                  }}
+                />
+              )}
+            </div>
+          </Modal.Footer>
+        </Modal>
+      )}
 
       <div className="Home_Content">
         {todos.map((item) => (

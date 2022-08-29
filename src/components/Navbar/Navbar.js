@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useMatch, useNavigate } from "react-router-dom";
 import Icon from "../Icon";
+import Logo from "../../Assets/images/logo.png";
 
 import "./styles.css";
 
@@ -51,7 +52,10 @@ const Navbar = () => {
       onMouseEnter={handleOpen}
       onMouseLeave={handleOpen}
     >
-      <div className="Logo"></div>
+      <div className="Logo">
+        <img src={Logo} />
+        <h2>Todolist</h2>
+      </div>
       <ul className="Navbar_Options">
         {navbarItems.map((item) => Item(item))}
       </ul>

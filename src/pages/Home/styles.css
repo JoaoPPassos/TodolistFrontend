@@ -31,3 +31,8 @@
   background: #ffffff36;
   border-radius: 4px;
 }
+
+.ButtonDiv {
+  display: flex;
+  justify-content: space-between;
+}

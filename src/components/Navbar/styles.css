@@ -14,8 +14,36 @@
   width: 320px;
 }
 
-.Logo {
+.Navbar.open .Logo {
+  height: 240px;
+  transition: 0.3s;
+}
+
+.Navbar.open .Logo img {
   height: 120px;
+  width: 120px;
+  transition: 0.3s;
+}
+
+.Logo h2 {
+  display: none;
+}
+
+.Logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+}
+.Logo img {
+  height: 32px;
+  width: 32px;
+}
+
+.Navbar.open .Logo h2 {
+  display: block;
 }
 .Navbar_Options {
   list-style: none;

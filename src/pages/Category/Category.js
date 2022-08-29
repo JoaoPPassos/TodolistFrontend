@@ -32,6 +32,7 @@ const Category = () => {
       });
       handleModal();
       getCategories();
+      setForm({});
     } catch (error) {}
   };
 
@@ -43,6 +44,19 @@ const Category = () => {
       });
       handleModal();
       getCategories();
+      setForm({});
+    } catch (error) {
+    } finally {
+      setSelectedCategory(null);
+    }
+  };
+
+  const deleteCategory = async () => {
+    try {
+      const response = await apiCategory.delete(`/${selectedCategory.id}`);
+      handleModal();
+      getCategories();
+      setForm({});
     } catch (error) {
     } finally {
       setSelectedCategory(null);
@@ -55,46 +69,58 @@ const Category = () => {
     }
   }, [selectedCategory]);
 
-  console.log(selectedCategory);
   return (
     <main className="Category">
-      <Modal
-        show={createModal}
-        onHide={() => {
-          if (selectedCategory) setSelectedCategory(null);
-          handleModal();
-        }}
-      >
-        <Modal.Header title="Create Todo" closeButton />
-        <Modal.Body>
-          <div>
-            <Input
-              label="Title"
-              onChange={(el) =>
-                setForm((old) => ({ ...old, title: el.target.value }))
-              }
-              defaultValue={selectedCategory?.name}
-            />
-            <Input
-              label="Color"
-              type="color"
-              onChange={(el) =>
-                setForm((old) => ({ ...old, color: el.target.value }))
-              }
-              defaultValue={selectedCategory?.color}
-            />
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            label="Confirm"
-            onClick={() => {
-              if (!!selectedCategory) editCategory();
-              else createCategory();
-            }}
-          />
-        </Modal.Footer>
-      </Modal>
+      {createModal && (
+        <Modal
+          show={createModal}
+          onHide={() => {
+            if (!!selectedCategory) setSelectedCategory(null);
+            handleModal();
+          }}
+        >
+          <Modal.Header title="Create Todo" closeButton />
+          <Modal.Body>
+            <div>
+              <Input
+                label="Title"
+                onChange={(el) =>
+                  setForm((old) => ({ ...old, title: el.target.value }))
+                }
+                defaultValue={selectedCategory?.name}
+              />
+              <Input
+                label="Color"
+                type="color"
+                onChange={(el) =>
+                  setForm((old) => ({ ...old, color: el.target.value }))
+                }
+                // defaultValue={selectedCategory?.color}
+              />
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <div className="ButtonDiv">
+              <Button
+                label="Confirm"
+                onClick={() => {
+                  if (!!selectedCategory) editCategory();
+                  else createCategory();
+                }}
+              />
+              {!!selectedCategory && (
+                <Button
+                  type="remove"
+                  label="Delete"
+                  onClick={() => {
+                    deleteCategory();
+                  }}
+                />
+              )}
+            </div>
+          </Modal.Footer>
+        </Modal>
+      )}
       <Button type="include" onClick={handleModal} />
       <div className="Content">
         {categories.map((item, index) => (
