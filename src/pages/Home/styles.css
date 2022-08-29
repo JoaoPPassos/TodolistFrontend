@@ -6,6 +6,11 @@
   padding: 36px 32px;
 }
 
+.Home > span {
+  color: #ffffff;
+  font-size: 24px;
+}
+
 .Home_Content {
   margin-top: 12px;
   width: 100%;

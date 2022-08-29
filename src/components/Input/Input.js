@@ -17,14 +17,11 @@ const Input = (props) => {
   );
 
   let rangeValues = {
-    0: "Muito Importante",
-    1: "Importante",
-    2: "Normal",
-    3: "Pouco Importante",
+    1: "Muito Importante",
+    2: "Importante",
+    3: "Normal",
+    4: "Pouco Importante",
   };
-
-  console.log(defaultValue);
-
   return (
     <div className={`Input ${outlined ? "outlined" : ""}`}>
       <label className="InputLabel">{label}</label>

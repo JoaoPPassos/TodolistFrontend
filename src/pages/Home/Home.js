@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, CategoryArea, Input, Modal, Sticky } from "../../components";
-import { apiTodo } from "../../service/api";
+import { apiCategory, apiTodo } from "../../service/api";
+import { getUser } from "../../store/auth";
+import { Capitalize } from "../../Util/String";
 
 import "./styles.css";
 const Home = () => {
@@ -9,6 +11,7 @@ const Home = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [form, setForm] = useState({});
   const [selectedTodo, setSelectedTodo] = useState(null);
+  const user = getUser();
   const getTodoList = async () => {
     try {
       const response = await apiTodo.get();
@@ -26,23 +29,32 @@ const Home = () => {
       let categories = result[1].data;
       let todos = result[0].data;
       let obj = [];
-      categories?.data?.forEach((cat) => {
+      categories?.forEach((cat) => {
         let newObj = {
           nm_category: cat.name,
           category_color: cat.color,
           id: cat.id,
-          todos: todos?.data?.filter((el) => el.category.id === cat.id),
+          todos: todos
+            ?.filter((el) => el.category_id === cat.id)
+            .map((item) => ({
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              priority_status: item.priority_status,
+              priority_id: item.priority_id,
+            })),
         };
 
         obj.push(newObj);
       });
+
       setTodos(obj);
     });
   };
 
   const getCategories = async () => {
     try {
-      const response = apiTodo.get("/category");
+      const response = apiCategory.get();
       return response;
     } catch (error) {}
   };
@@ -55,12 +67,12 @@ const Home = () => {
 
   const createTodo = async () => {
     try {
-      const response = await apiTodo.post("/create/", {
-        title: form.title,
+      const response = await apiTodo.post("/", {
+        name: form.title,
         description: form.description,
-        deadline: form.date,
-        category: selectedCategory,
-        priority: form.priority,
+        // deadline: form.date,
+        category_id: selectedCategory,
+        priority_id: form.priority,
       });
       setShowCreateModal(false);
       executeRequests();
@@ -73,7 +85,7 @@ const Home = () => {
         title: form?.title,
         description: form?.description,
         category: selectedTodo.category.id,
-        deadline: form?.date,
+        // deadline: form?.date,
         priority: form?.priority || selectedCategory.priority.todo,
       });
       setShowCreateModal(false);
@@ -86,6 +98,11 @@ const Home = () => {
 
   return (
     <main className="Home">
+      <span>
+        Bem vindo ao seu Todolist,{" "}
+        <strong>{Capitalize(user?.user, true)}</strong>{" "}
+      </span>
+
       <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)}>
         <Modal.Header title="Create Todo" closeButton />
         <Modal.Body>
@@ -95,7 +112,7 @@ const Home = () => {
               onChange={(el) =>
                 setForm((old) => ({ ...old, title: el.target.value }))
               }
-              defaultValue={selectedTodo?.title}
+              defaultValue={selectedTodo?.name}
             />
             <Input
               label="Description"
@@ -104,20 +121,20 @@ const Home = () => {
               }
               defaultValue={selectedTodo?.description}
             />
-            <Input
+            {/* <Input
               label="deadline"
               type="date"
               onChange={(el) =>
                 setForm((old) => ({ ...old, date: el.target.value }))
               }
               defaultValue={selectedTodo?.deadline}
-            />
+            /> */}
             <Input
               label="priority"
               type="range"
-              minRange="0"
-              maxRange="3"
-              defaultValue={String(selectedTodo?.priority.id)}
+              minRange="1"
+              maxRange="4"
+              defaultValue={String(selectedTodo?.priority_id)}
               onChange={(el) =>
                 setForm((old) => ({
                   ...old,
@@ -150,11 +167,14 @@ const Home = () => {
             {item.todos.map((todo, index) => (
               <Sticky
                 id={index}
-                baseColor={todo.category.color}
-                title={todo.title}
-                priority={todo.priority}
+                baseColor={item.category_color}
+                title={todo.name}
+                priority={{
+                  status: todo.priority_status,
+                  id: todo.priority_id,
+                }}
                 description={todo.description}
-                deadline={todo.deadline}
+                // deadline={todo.deadline}
                 onClick={() => setSelectedTodo(todo)}
               />
             ))}

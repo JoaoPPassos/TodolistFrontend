@@ -1,5 +1,6 @@
 .CategoryArea {
   width: 340px;
+  min-width: 340px;
   padding: 12px 12px;
   height: 800px;
 
@@ -12,6 +13,7 @@
   line-height: 19px;
   margin: 0;
   color: #ffffff;
+  max-width: 264px;
 }
 
 .CategoryArea_Header {

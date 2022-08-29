@@ -1,5 +1,6 @@
 export const getLightAndDarkColor = (col, amt) => {
   var usePound = false;
+
   if (col[0] == "#") {
     col = col.slice(1);
     usePound = true;
