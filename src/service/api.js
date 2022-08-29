@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../store/auth";
 
-const url = "https://todolist-adonis-blugld8ao-joaoppassos.vercel.app/";
+const url = "https://todolist-adonis-blugld8ao-joaoppassos.vercel.app";
 
 export const apiAuth = axios.create({
   baseURL: url + "/user/",
