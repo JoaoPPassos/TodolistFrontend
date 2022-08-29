@@ -28,7 +28,7 @@ const Sticky = (props) => {
           className="Sticky_Priority"
           style={{ backgroundColor: priority_color }}
         >
-          {priority.status}
+          <span>{priority.status}</span>
         </div>
         {/* <span>{deadline}</span> */}
       </div>

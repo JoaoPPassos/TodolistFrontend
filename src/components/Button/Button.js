@@ -16,10 +16,10 @@ const Button = (props) => {
 };
 
 const normalButton = (props) => {
-  const { onClick, label } = props;
+  const { onClick, label, variant = "primary" } = props;
 
   return (
-    <div onClick={onClick} className="Button">
+    <div onClick={onClick} className={`Button ${variant}`}>
       {label}
     </div>
   );

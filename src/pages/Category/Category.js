@@ -103,6 +103,7 @@ const Category = () => {
             <div className="ButtonDiv">
               <Button
                 label="Confirm"
+                variant="secondary"
                 onClick={() => {
                   if (!!selectedCategory) editCategory();
                   else createCategory();

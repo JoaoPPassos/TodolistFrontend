@@ -4,6 +4,7 @@ import Icon from "../Icon";
 import Logo from "../../Assets/images/logo.png";
 
 import "./styles.css";
+import { logout } from "../../store/auth";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -21,20 +22,28 @@ const Navbar = () => {
       name: "Categorias",
       redirectLink: "/category",
     },
+    {
+      iconName: "logout",
+      name: "Logout",
+      onClick: logout,
+    },
   ];
 
   const handleOpen = () => setOpen(!open);
 
   const isOptionSelected = (path) => pathname === path;
 
-  const Item = (item) => {
+  const Item = (item, logout) => {
     return (
       <li
         className={`Navbar_Item ${
-          isOptionSelected(item.redirectLink) ? "selected" : ""
+          isOptionSelected(item?.redirectLink) ? "selected" : ""
         }`}
         key={item.name}
-        onClick={() => navigate(item.redirectLink)}
+        onClick={() => {
+          if (item.onClick) item.onClick();
+          navigate(item.redirectLink);
+        }}
       >
         <Icon
           name={item.iconName}

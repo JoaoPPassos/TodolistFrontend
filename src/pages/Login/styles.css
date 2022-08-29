@@ -6,3 +6,24 @@
   justify-content: center;
   align-items: center;
 }
+
+.Login section {
+  background-color: rgba(255, 255, 255, 0.233);
+  border-radius: 6px;
+  width: 360px;
+  color: #282c34;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+  padding: 16px;
+}
+
+.Login_Signup {
+  color: #fff;
+}
+
+.Login_Signup span {
+  color: #4583ff;
+  text-decoration: underline;
+  cursor: pointer;
+}

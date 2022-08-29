@@ -112,7 +112,7 @@ const Home = () => {
   return (
     <main className="Home">
       <span>
-        Bem vindo ao seu Todolist,{" "}
+        Welcome to your Todolist,{" "}
         <strong>{Capitalize(user?.user, true)}</strong>{" "}
       </span>
 
@@ -153,7 +153,7 @@ const Home = () => {
               defaultValue={selectedTodo?.deadline}
             /> */}
               <Input
-                label="priority"
+                label="Priority"
                 type="range"
                 minRange="1"
                 maxRange="4"
@@ -171,6 +171,7 @@ const Home = () => {
             <div className="ButtonDiv">
               <Button
                 label="Confirm"
+                variant="secondary"
                 onClick={() => {
                   if (!!selectedTodo) editTodo();
                   else createTodo();

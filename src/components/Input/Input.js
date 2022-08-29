@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import Icon from "../Icon";
 
 import "./styles.css";
 const Input = (props) => {
@@ -15,7 +16,9 @@ const Input = (props) => {
   const [currentRange, setCurrentRange] = useState(
     !!defaultValue && type === "range" ? String(defaultValue) : "3"
   );
+  const [visiblePassword, setVisiblePassword] = useState(false);
 
+  const handleVisibility = () => setVisiblePassword(!visiblePassword);
   let rangeValues = {
     1: "Muito Importante",
     2: "Importante",
@@ -34,12 +37,23 @@ const Input = (props) => {
           defaultValue={
             defaultValue ? defaultValue : type === "range" ? currentRange : ""
           }
-          type={type}
+          type={visiblePassword ? "text" : type}
           onChange={(ev) => {
             onChange(ev);
             setCurrentRange(ev.target.value);
           }}
         />
+        {type === "password" ? (
+          visiblePassword ? (
+            <div className="Visibility" onClick={handleVisibility}>
+              <Icon name="visibility_off" />
+            </div>
+          ) : (
+            <div className="Visibility" onClick={handleVisibility}>
+              <Icon name="visibility" />
+            </div>
+          )
+        ) : null}
       </div>
     </div>
   );

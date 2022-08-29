@@ -39,8 +39,22 @@
   cursor: pointer;
 }
 
-.Button:hover {
+.Button.primary {
+  color: #fff;
+}
+
+.Button.secondary {
+  background-color: rgb(73, 73, 73);
+  color: #fff;
+}
+
+.Button.primary:hover {
+  color: #000;
   background-color: rgb(223, 223, 223);
+}
+
+.Button.secondary:hover {
+  background-color: rgb(29, 29, 29);
 }
 
 .Button.Remove {
