@@ -56,6 +56,7 @@ const Login = () => {
           </Modal.Footer>
         </Modal>
       )}
+      Teste
       <section>
         <Input
           label="Email"
