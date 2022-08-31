@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../store/auth";
 
-const url = "ec2-18-231-26-133.sa-east-1.compute.amazonaws.com:3000";
+const url = "https://ec2-18-231-26-133.sa-east-1.compute.amazonaws.com:3000";
 
 export const apiAuth = axios.create({
   baseURL: url + "/user/",
