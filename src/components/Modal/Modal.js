@@ -10,10 +10,11 @@ const Modal = (props) => {
 
   hideFunction = onHide;
   console.log(children);
-  console.log(subComponentList);
   let subComponentList = Object.keys(Modal);
+  console.log(subComponentList);
+
   let subComponents = subComponentList.map((key) => {
-    return React.Children.map(children, (child) =>
+    return React.Children.map(props.children, (child) =>
       child.type.name === key ? child : null
     );
   });
