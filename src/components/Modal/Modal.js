@@ -13,9 +13,10 @@ const Modal = (props) => {
   let subComponentList = Object.keys(Modal);
 
   let subComponents = subComponentList.map((key) => {
-    return React.Children.map(props.children, (child) =>
-      child.type.name === key ? child : null
-    );
+    return React.Children.map(props.children, (child) => {
+      console.log(child, key);
+      return child.type.name === key ? child : null;
+    });
   });
 
   console.log(subComponents);
