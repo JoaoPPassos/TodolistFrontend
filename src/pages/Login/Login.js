@@ -22,7 +22,7 @@ const Login = () => {
   };
 
   return (
-    <main className="Login">
+    <>
       {signupModal && (
         <Modal show={signupModal} onHide={handleModal}>
           <Modal.Header closeButton title="Sign up" />
@@ -58,28 +58,30 @@ const Login = () => {
           </Modal.Footer>
         </Modal>
       )}
-      <section>
-        <Input
-          label="Email"
-          outlined
-          onChange={(ref) => setName(ref.target.value)}
-        />
-        <Input
-          label="Password"
-          outlined
-          type="password"
-          onChange={(ref) => setPassword(ref.target.value)}
-        />
-        <div>
-          {/* <button onClick={() => makeLogin(name, password)}>Login</button> */}
-          <Button onClick={() => makeLogin(name, password)} label="Login" />
-        </div>
+      <main className="Login">
+        <section>
+          <Input
+            label="Email"
+            outlined
+            onChange={(ref) => setName(ref.target.value)}
+          />
+          <Input
+            label="Password"
+            outlined
+            type="password"
+            onChange={(ref) => setPassword(ref.target.value)}
+          />
+          <div>
+            {/* <button onClick={() => makeLogin(name, password)}>Login</button> */}
+            <Button onClick={() => makeLogin(name, password)} label="Login" />
+          </div>
 
-        <div className="Login_Signup">
-          Don't have an account? <span onClick={handleModal}>Sign up</span>
-        </div>
-      </section>
-    </main>
+          <div className="Login_Signup">
+            Don't have an account? <span onClick={handleModal}>Sign up</span>
+          </div>
+        </section>
+      </main>
+    </>
   );
 };
 
