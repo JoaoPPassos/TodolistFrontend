@@ -9,7 +9,8 @@ const Modal = (props) => {
   const { children, show, onHide } = props;
 
   hideFunction = onHide;
-
+  console.log(children);
+  console.log(subComponentList);
   let subComponentList = Object.keys(Modal);
   let subComponents = subComponentList.map((key) => {
     return React.Children.map(children, (child) =>
