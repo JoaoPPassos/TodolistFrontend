@@ -11,7 +11,6 @@ const Modal = (props) => {
   hideFunction = onHide;
   console.log(children);
   let subComponentList = Object.keys(Modal);
-  console.log(subComponentList);
 
   let subComponents = subComponentList.map((key) => {
     return React.Children.map(props.children, (child) =>
@@ -19,6 +18,7 @@ const Modal = (props) => {
     );
   });
 
+  console.log(subComponentList);
   const headerComponent =
     subComponents?.filter(
       (component) => component?.[0]?.type?.name === "Header"
