@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Icon from "../Icon";
 
 import "./styles.css";
@@ -7,9 +7,9 @@ var hideFunction = null;
 
 const Modal = (props) => {
   const { children, show, onHide } = props;
-
+  const ref = useRef(children[0]);
   hideFunction = onHide;
-  console.log(children);
+  console.log(ref);
   let subComponentList = Object.keys(Modal);
 
   let subComponents = subComponentList.map((key) => {
@@ -64,7 +64,7 @@ const Modal = (props) => {
 };
 
 const Header = (props) => {
-  const { title, closeButton = false } = props;
+  const { title, closeButton = false, type = "HEADER" } = props;
   console.log("title", title);
   return (
     <div className="Modal_Header">
@@ -84,15 +84,20 @@ const Header = (props) => {
 };
 
 const Body = (props) => {
+  const { type = "BODY" } = props;
   console.log("body", props);
   return <div className="Modal_Body">{props.children}</div>;
 };
 
 const Footer = (props) => {
+  const { type = "FOOTER" } = props;
   console.log("footer", props);
   return <div className="Modal_Footer">{props.children}</div>;
 };
 
+Header.type = "Header";
+Body.type = "Body";
+Footer.type = "Footer";
 Modal.Header = Header;
 Modal.Body = Body;
 Modal.Footer = Footer;
