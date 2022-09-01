@@ -25,7 +25,7 @@ const Modal = (props) => {
         (component) => component?.[0]?.type?.name === "Header"
       )[0][0]
     ) : (
-      <Header>Teste</Header>
+      <Header />
     );
 
   const bodyComponent =
@@ -63,6 +63,7 @@ const Header = (props) => {
   const { title, closeButton = false } = props;
   return (
     <div className="Modal_Header">
+      teste header
       {title}
       {closeButton && (
         <div
