@@ -18,7 +18,7 @@ const Modal = (props) => {
     );
   });
 
-  console.log(subComponentList);
+  console.log(subComponents);
   const headerComponent =
     subComponents?.filter(
       (component) => component?.[0]?.type?.name === "Header"
