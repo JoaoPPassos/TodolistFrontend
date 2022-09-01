@@ -14,16 +14,16 @@ const Input = (props) => {
   } = props;
 
   const [currentRange, setCurrentRange] = useState(
-    !!defaultValue && type === "range" ? String(defaultValue) : "3"
+    !!defaultValue && type === "range" ? String(defaultValue) : "2"
   );
   const [visiblePassword, setVisiblePassword] = useState(false);
 
   const handleVisibility = () => setVisiblePassword(!visiblePassword);
   let rangeValues = {
-    1: "Muito Importante",
-    2: "Importante",
-    3: "Normal",
-    4: "Pouco Importante",
+    1: "Pouco Importante",
+    2: "Normal",
+    3: "Importante",
+    4: "Muito Importante",
   };
 
   return (
