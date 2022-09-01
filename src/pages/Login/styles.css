@@ -27,3 +27,7 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+h2 {
+  text-align: center;
+}

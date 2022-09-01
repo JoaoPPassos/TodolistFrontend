@@ -1,0 +1,76 @@
+.Loading {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgba(27, 27, 27, 0.473);
+  z-index: 4000;
+}
+
+.Loading_Content {
+  width: 128px;
+  height: 64px;
+  display: flex;
+  column-gap: 6px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.Loading_Content div {
+  height: 6px;
+  width: 6px;
+  border-radius: 3px;
+  background-color: #fff;
+  animation-name: animation;
+  animation-duration: 1.3s;
+  animation-iteration-count: infinite;
+}
+
+.Loading_Content div:nth-child(1) {
+  animation-delay: 0s;
+}
+.Loading_Content div:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.Loading_Content div:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.Loading_Content div:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.Loading_Content div:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.Loading_Content div:nth-child(6) {
+  animation-delay: 0.5s;
+}
+.Loading_Content div:nth-child(7) {
+  animation-delay: 0.6s;
+}
+.Loading_Content div:nth-child(8) {
+  animation-delay: 0.7s;
+}
+.Loading_Content div:nth-child(9) {
+  animation-delay: 0.8s;
+}
+
+@keyframes animation {
+  0% {
+    height: 6px;
+    background-color: #fff;
+  }
+  50% {
+    height: 48px;
+    background-color: rgb(56, 69, 240);
+  }
+  100% {
+    height: 6px;
+    background-color: #fff;
+  }
+}

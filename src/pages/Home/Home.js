@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, CategoryArea, Input, Modal, Sticky } from "../../components";
+import {
+  Button,
+  CategoryArea,
+  Input,
+  Modal,
+  Sticky,
+  Loading,
+} from "../../components";
 import { apiCategory, apiTodo } from "../../service/api";
 import { getUser } from "../../store/auth";
 import { Capitalize } from "../../Util/String";
@@ -11,6 +18,8 @@ const Home = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [form, setForm] = useState({});
   const [selectedTodo, setSelectedTodo] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const user = getUser();
   const getTodoList = async () => {
     try {
@@ -24,8 +33,9 @@ const Home = () => {
     executeRequests();
   }, []);
 
-  const executeRequests = () => {
-    Promise.all([getTodoList(), getCategories()]).then((result) => {
+  const executeRequests = async () => {
+    setIsLoading(true);
+    await Promise.all([getTodoList(), getCategories()]).then((result) => {
       let categories = result[1].data;
       let todos = result[0].data;
       let obj = [];
@@ -50,6 +60,7 @@ const Home = () => {
 
       setTodos(obj);
     });
+    setIsLoading(false);
   };
 
   const getCategories = async () => {
@@ -66,6 +77,8 @@ const Home = () => {
   }, [selectedTodo]);
 
   const createTodo = async () => {
+    setIsLoading(true);
+
     try {
       const response = await apiTodo.post("/", {
         name: form.title,
@@ -77,10 +90,15 @@ const Home = () => {
       setShowCreateModal(false);
       executeRequests();
       setForm({});
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const editTodo = async () => {
+    setIsLoading(true);
+
     try {
       const response = await apiTodo.put(`/${selectedTodo.id}`, {
         name: form?.title || selectedTodo.title,
@@ -93,11 +111,14 @@ const Home = () => {
       setForm({});
     } catch (error) {
     } finally {
+      setIsLoading(false);
       setSelectedTodo(null);
     }
   };
 
   const deleteTodo = async () => {
+    setIsLoading(true);
+
     try {
       const response = await apiTodo.delete(`/${selectedTodo.id}`);
       setShowCreateModal(false);
@@ -105,12 +126,15 @@ const Home = () => {
       setForm({});
     } catch (error) {
     } finally {
+      setIsLoading(false);
       setSelectedTodo(null);
     }
   };
 
   return (
     <main className="Home">
+      {isLoading && <Loading />}
+
       <span>
         Welcome to your Todolist,{" "}
         <strong>{Capitalize(user?.user, true)}</strong>{" "}

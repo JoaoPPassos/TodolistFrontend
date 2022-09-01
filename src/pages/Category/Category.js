@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Button, CategorySticky, Input, Modal } from "../../components";
+import {
+  Button,
+  CategorySticky,
+  Input,
+  Loading,
+  Modal,
+} from "../../components";
 import { apiCategory } from "../../service/api";
 
 import "./styles.css";
@@ -9,6 +15,7 @@ const Category = () => {
   const [createModal, setCreateModal] = useState(false);
   const [form, setForm] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleModal = () => setCreateModal(!createModal);
 
@@ -17,14 +24,21 @@ const Category = () => {
   }, []);
 
   const getCategories = async () => {
+    setIsLoading(true);
+
     try {
       const response = await apiCategory.get();
 
       setCategories(response.data);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const createCategory = async () => {
+    setIsLoading(true);
+
     try {
       const response = await apiCategory.post("/", {
         name: form.title,
@@ -33,10 +47,15 @@ const Category = () => {
       handleModal();
       getCategories();
       setForm({});
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const editCategory = async () => {
+    setIsLoading(true);
+
     try {
       const response = await apiCategory.put(`/${selectedCategory.id}`, {
         name: form?.title || selectedCategory.name,
@@ -47,11 +66,14 @@ const Category = () => {
       setForm({});
     } catch (error) {
     } finally {
+      setIsLoading(false);
       setSelectedCategory(null);
     }
   };
 
   const deleteCategory = async () => {
+    setIsLoading(true);
+
     try {
       const response = await apiCategory.delete(`/${selectedCategory.id}`);
       handleModal();
@@ -59,6 +81,7 @@ const Category = () => {
       setForm({});
     } catch (error) {
     } finally {
+      setIsLoading(false);
       setSelectedCategory(null);
     }
   };
@@ -71,6 +94,7 @@ const Category = () => {
 
   return (
     <main className="Category">
+      {isLoading && <Loading />}
       {createModal && (
         <Modal
           show={createModal}
