@@ -27,25 +27,27 @@ const Login = () => {
         <Modal show={signupModal} onHide={handleModal}>
           <Modal.Header closeButton title="Sign up" />
           <Modal.Body>
-            <Input
-              label="Email"
-              onChange={(ref) =>
-                setForm((old) => ({ ...old, email: ref.target.value }))
-              }
-            />
-            <Input
-              label="Username"
-              onChange={(ref) =>
-                setForm((old) => ({ ...old, username: ref.target.value }))
-              }
-            />
-            <Input
-              label="Password"
-              type="password"
-              onChange={(ref) =>
-                setForm((old) => ({ ...old, password: ref.target.value }))
-              }
-            />
+            <>
+              <Input
+                label="Email"
+                onChange={(ref) =>
+                  setForm((old) => ({ ...old, email: ref.target.value }))
+                }
+              />
+              <Input
+                label="Username"
+                onChange={(ref) =>
+                  setForm((old) => ({ ...old, username: ref.target.value }))
+                }
+              />
+              <Input
+                label="Password"
+                type="password"
+                onChange={(ref) =>
+                  setForm((old) => ({ ...old, password: ref.target.value }))
+                }
+              />
+            </>
           </Modal.Body>
           <Modal.Footer>
             <Button
@@ -65,6 +67,7 @@ const Login = () => {
         <Input
           label="Password"
           outlined
+          type="password"
           onChange={(ref) => setPassword(ref.target.value)}
         />
         <div>
