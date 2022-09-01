@@ -48,6 +48,7 @@ const Modal = (props) => {
     ) : (
       <Footer />
     );
+  console.log(headerComponent, bodyComponent, footerComponent);
   return (
     <div className={`Modal ${show ? "show" : ""}`}>
       <div className="Modal_Content">
