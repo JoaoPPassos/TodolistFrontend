@@ -61,9 +61,9 @@ const Modal = (props) => {
 
 const Header = (props) => {
   const { title, closeButton = false } = props;
+  console.log("title", title);
   return (
     <div className="Modal_Header">
-      teste header
       {title}
       {closeButton && (
         <div
@@ -80,10 +80,12 @@ const Header = (props) => {
 };
 
 const Body = (props) => {
+  console.log("body", props);
   return <div className="Modal_Body">{props.children}</div>;
 };
 
 const Footer = (props) => {
+  console.log("footer", props);
   return <div className="Modal_Footer">{props.children}</div>;
 };
 
