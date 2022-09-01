@@ -25,7 +25,7 @@ const Modal = (props) => {
         (component) => component?.[0]?.type?.name === "Header"
       )[0][0]
     ) : (
-      <Header />
+      <Header>Teste</Header>
     );
 
   const bodyComponent =
