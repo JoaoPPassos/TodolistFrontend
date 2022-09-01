@@ -82,7 +82,7 @@ const Home = () => {
 
   const editTodo = async () => {
     try {
-      const response = await apiTodo.put(`/update/${selectedTodo.id}`, {
+      const response = await apiTodo.put(`/${selectedTodo.id}`, {
         name: form?.title || selectedTodo.title,
         description: form?.description || selectedTodo.description,
         category_id: selectedTodo.category_id,
