@@ -14,28 +14,26 @@ const Modal = (props) => {
 
   let subComponents = subComponentList.map((key) => {
     return React.Children.map(props.children, (child) => {
-      console.log(child, key);
-      return child.type.name === key ? child : null;
+      return child.type.type === key ? child : null;
     });
   });
 
-  console.log(subComponents);
   const headerComponent =
     subComponents?.filter(
-      (component) => component?.[0]?.type?.name === "Header"
+      (component) => component?.[0]?.type?.type === "Header"
     ).length > 0 ? (
       subComponents?.filter(
-        (component) => component?.[0]?.type?.name === "Header"
+        (component) => component?.[0]?.type?.type === "Header"
       )[0][0]
     ) : (
       <Header />
     );
 
   const bodyComponent =
-    subComponents?.filter((component) => component?.[0]?.type?.name === "Body")
+    subComponents?.filter((component) => component?.[0]?.type?.type === "Body")
       .length > 0 ? (
       subComponents?.filter(
-        (component) => component?.[0]?.type?.name === "Body"
+        (component) => component?.[0]?.type?.type === "Body"
       )[0][0]
     ) : (
       <Body />
@@ -43,15 +41,14 @@ const Modal = (props) => {
 
   const footerComponent =
     subComponents?.filter(
-      (component) => component?.[0]?.type?.name === "Footer"
+      (component) => component?.[0]?.type?.type === "Footer"
     ).length > 0 ? (
       subComponents?.filter(
-        (component) => component?.[0]?.type?.name === "Footer"
+        (component) => component?.[0]?.type?.type === "Footer"
       )[0][0]
     ) : (
       <Footer />
     );
-  console.log(headerComponent, bodyComponent, footerComponent);
   return (
     <div className={`Modal ${show ? "show" : ""}`}>
       <div className="Modal_Content">
@@ -98,6 +95,7 @@ const Footer = (props) => {
 Header.type = "Header";
 Body.type = "Body";
 Footer.type = "Footer";
+
 Modal.Header = Header;
 Modal.Body = Body;
 Modal.Footer = Footer;
